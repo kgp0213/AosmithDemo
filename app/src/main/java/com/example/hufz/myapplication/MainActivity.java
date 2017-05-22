@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView areaCheckListView;
     private Button Button;
     private View mContentView;
+    private Button button;
+    private boolean bcf=true;
     ActionBar actionBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
                 WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        button=(Button)findViewById(R.id.button);
         mContentView = findViewById(R.id.fullscreen_content_controls);
         tempControl = (TempControlView) findViewById(R.id.temp_control);
         tempControl.setTemp(25, 85, 25);
@@ -55,7 +58,14 @@ public class MainActivity extends AppCompatActivity {
         Button.setOnClickListener(new CheckBoxClickListener());
         //
     }
-
+    public void SetBc (View vt){
+       if(bcf) {mContentView.setBackgroundColor(0xff000000);
+           bcf=!bcf;
+       }
+       else {mContentView.setBackgroundColor(0xECF4F9);
+           bcf=!bcf;
+       }
+    }
 
 
     class CheckBoxClickListener implements OnClickListener{

@@ -1,22 +1,18 @@
 package com.example.hufz.myapplication;
 
+import java.io.File;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-import com.example.hufz.myapplication.TempControlView;
 import android.app.ActionBar;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,10 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private Button Button;
     private View mContentView;
     private Button button;
+    private Button Button_video;
     private boolean bcf=true;
     ActionBar actionBar;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         //去除title
@@ -39,11 +37,12 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
                 WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
         button=(Button)findViewById(R.id.button);
         mContentView = findViewById(R.id.fullscreen_content_controls);
         tempControl = (TempControlView) findViewById(R.id.temp_control);
-        tempControl.setTemp(25, 85, 25);
 
+        tempControl.setTemp(25, 85, 25);
         tempControl.setOnTempChangeListener(new TempControlView.OnTempChangeListener() {
             @Override
             public void change(int temp) {
@@ -53,10 +52,37 @@ public class MainActivity extends AppCompatActivity {
         //super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
         Button=(Button)findViewById(R.id.Button);
-        actionBar=getActionBar();
+        Button_video=(Button)findViewById(R.id.button_video) ;
+       // actionBar=getActionBar();
         //actionBar.hide();
+        Button_video.setOnClickListener(new but_videoplay());
         Button.setOnClickListener(new CheckBoxClickListener());
+
         //
+    }
+    class but_videoplay implements OnClickListener{
+        public void onClick (View v){
+            Intent intent = null;
+            intent=new Intent(MainActivity.this, VideoViewActivity.class);
+            startActivity(intent);
+        }
+    }
+    //@Override
+    public void onClick(View v) {
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.button_video:
+                intent=new Intent(MainActivity.this, VideoViewActivity.class);
+                startActivity(intent);
+                break;
+		/*case R.id.btn_controller:
+			intent=new Intent(MainActivity.this, ControllerActivity.class);
+			startActivity(intent);
+			break;*/
+            default:
+                break;
+        }
+
     }
     public void SetBc (View vt){
        if(bcf) {mContentView.setBackgroundColor(0xff000000);

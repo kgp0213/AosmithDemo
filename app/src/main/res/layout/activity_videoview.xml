@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--调试时需要确认SD卡相应位置存在指定的文件-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+    </LinearLayout>
+
+    <VideoView
+        android:id="@+id/vv_videoview"
+        android:layout_width="wrap_content"
+        android:layout_height="259dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="50dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/vv_videoview"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:text="播放" />
+
+    <Button
+        android:id="@+id/btn_replay"
+        android:layout_width="50dip"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_play"
+        android:layout_alignBottom="@+id/btn_play"
+        android:layout_marginStart="22dp"
+        android:layout_toEndOf="@+id/btn_play"
+        android:layout_weight="1"
+        android:text="重播" />
+
+</RelativeLayout>

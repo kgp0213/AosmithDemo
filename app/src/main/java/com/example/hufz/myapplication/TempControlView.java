@@ -14,8 +14,6 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.hufz.myapplication.R;
-
 /**
  * 温度控制
  * Created by yangle on 2016/11/29.

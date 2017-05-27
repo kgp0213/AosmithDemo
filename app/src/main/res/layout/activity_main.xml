@@ -33,6 +33,15 @@
         android:layout_alignTop="@+id/Button"
         android:text="B/L" />
 
+    <Button
+        android:id="@+id/button_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/button"
+        android:layout_alignStart="@+id/button" />
+
 </RelativeLayout>
 
     <!--android:background="#ECF4F9"-->

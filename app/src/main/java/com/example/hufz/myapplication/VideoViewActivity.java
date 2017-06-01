@@ -125,7 +125,7 @@ public class VideoViewActivity extends Activity {
 		}
 		return super.onTouchEvent(event);
 	}
-	protected void play(int msec) {
+	public void play(int msec) {
 		Log.i(TAG, "------------------play-------------------------------");
 		String path = Environment.getExternalStorageDirectory().getPath()+"/"+"1.mp4";  //  et_path.getText().toString().trim();
 		Log.i(TAG, "playPath:"+path);

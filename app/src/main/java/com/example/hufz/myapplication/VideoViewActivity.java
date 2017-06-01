@@ -7,6 +7,7 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,6 +94,37 @@ public class VideoViewActivity extends Activity {
 		}
 	};
 
+	/**
+	 * 判断是向左还是滑动方向
+	 */
+	float x_tmp1=0,y_tmp1=0,x_tmp2,y_tmp2;
+	@Override
+	public boolean onTouchEvent(MotionEvent event){
+		//获取当前坐标
+		float x = event.getX();
+		float y = event.getY();
+
+		switch (event.getAction()){
+			case MotionEvent.ACTION_DOWN:
+				x_tmp1 = x;
+				y_tmp1 = y;
+				break;
+			case MotionEvent.ACTION_UP:
+				x_tmp2 = x;
+				y_tmp2 = y;
+				Log.i(TAG,"滑动参值 x1="+ x_tmp1 +"; x2=" + x_tmp2);
+				if(x_tmp1 != 0 && y_tmp1 != 0){
+					if(x_tmp1 - x_tmp2 > 8){
+						Log.i(TAG,"向左滑动");
+					}
+					if(x_tmp2 - x_tmp1 > 8){
+						Log.i(TAG,"向右滑动");
+					}
+				}
+				break;
+		}
+		return super.onTouchEvent(event);
+	}
 	protected void play(int msec) {
 		Log.i(TAG, "------------------play-------------------------------");
 		String path = Environment.getExternalStorageDirectory().getPath()+"/"+"1.mp4";  //  et_path.getText().toString().trim();

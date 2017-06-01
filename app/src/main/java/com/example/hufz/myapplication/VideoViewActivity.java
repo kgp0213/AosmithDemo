@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -93,17 +94,18 @@ public class VideoViewActivity extends Activity {
 	};
 
 	protected void play(int msec) {
-		Log.i(TAG, "Play");
-		String path ="sdcard/1.mp4";  //  et_path.getText().toString().trim();
+		Log.i(TAG, "------------------play-------------------------------");
+		String path = Environment.getExternalStorageDirectory().getPath()+"/"+"1.mp4";  //  et_path.getText().toString().trim();
+		Log.i(TAG, "playPath:"+path);
 		File file = new File(path);
 		if (!file.exists()) {
 			Toast.makeText(this, "File Not exists", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		Log.i(TAG, "文件存在");
+		Log.i(TAG, "------play----文件存在");
 		vv_video.setVideoPath(file.getAbsolutePath());
-		Log.i(TAG, "获得文件地址");
+		Log.i(TAG, "------play----已经设定文件地址");
 		vv_video.seekTo(msec);
 		vv_video.start();
 		//vv_video.onTouchEvent()

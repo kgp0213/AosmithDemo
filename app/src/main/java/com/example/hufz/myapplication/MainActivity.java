@@ -76,6 +76,7 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
         Button_video.setOnClickListener(new but_videoplay());
         Button.setOnClickListener(new CheckBoxClickListener());
     }
+
    //----------------------------------------------------------------------------
     //将该activity上的触碰事件交给GestureDetector处理
     public boolean onTouchEvent(MotionEvent me){
@@ -118,9 +119,11 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
 
             //Toast.makeText(this,velocityX+"右滑",Toast.LENGTH_SHORT).show();
         }else if(beginY-endY>minMove&&Math.abs(velocityY)>minVelocity){   //上滑
-            Toast.makeText(this,velocityX+"上滑",Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this,velocityX+"上滑",Toast.LENGTH_SHORT).show();
+            SetBc(mContentView);
         }else if(endY-beginY>minMove&&Math.abs(velocityY)>minVelocity){   //下滑
-            Toast.makeText(this,velocityX+"下滑",Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this,velocityX+"下滑",Toast.LENGTH_SHORT).show();
+            SetBc(mContentView);
         }
 
         return false;
@@ -154,7 +157,7 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
     }
     //----------------------------------------------------------------------
     public void play(int msec) {
-        Log.i(TAG, "------------------play-------------------------------");
+       // Log.i(TAG, "------------------play-------------------------------");
         //String path = Environment.getExternalStorageDirectory().getPath()+"/"+"1.mp4";  //  et_path.getText().toString().trim();
         String path = "/mnt/extsd0/1.mp4";  //  et_path.getText().toString().trim();
         Log.i(TAG, "playPath:"+path);
@@ -164,9 +167,9 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
             return;
         }
 
-        Log.i(TAG, "------play----文件存在");
+       // Log.i(TAG, "------play----文件存在");
         videoView.setVideoPath(file.getAbsolutePath());
-        Log.i(TAG, "------play----已经设定文件地址");
+        //Log.i(TAG, "------play----已经设定文件地址");
         videoView.seekTo(msec);
         videoView.start();
         //vv_video.onTouchEvent()
@@ -198,12 +201,14 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
        // btn_play.setEnabled(false);
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
+            //监控播放结束，播放结束后自动重播
             @Override
             public void onCompletion(MediaPlayer mp) {
                 //
                 //btn_play.setEnabled(true);
-                videoView.start();
+               // stop();
+                //videoView.start();
+                play(0);
 
             }
         });
@@ -232,7 +237,7 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
     /**
      * //
      */
-    protected void replay() {
+    /*protected void replay() {
         if (videoView != null && videoView.isPlaying()) {
             videoView.seekTo(3000);
             Toast.makeText(this, "循环", Toast.LENGTH_LONG).show();
@@ -242,7 +247,7 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
         isPlaying = false;
         play(0);
 
-    }
+    }*/
 
     /**
      * ��ͣ�����
@@ -271,31 +276,38 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
 			isPlaying = false;
 		}
 	}
+	//--------------------------------------------------------------------------------
     class but_videoplay implements OnClickListener{
+        //通过按钮切换到VideoViewActivity
         public void onClick (View v){
             Intent intent = null;
             intent=new Intent(MainActivity.this, VideoViewActivity.class);
             startActivity(intent);
         }
     }
+
     //@Override
-    public void onClick(View v) {
+   /* public void onClick(View v) {
+        //通过按钮切换到VideoViewActivity
         Intent intent = null;
         switch (v.getId()) {
             case R.id.button_video:
                 intent=new Intent(MainActivity.this, VideoViewActivity.class);
                 startActivity(intent);
                 break;
-		/*case R.id.btn_controller:
+		*//*case R.id.btn_controller:
 			intent=new Intent(MainActivity.this, ControllerActivity.class);
 			startActivity(intent);
-			break;*/
+			break;*//*
             default:
                 break;
         }
 
-    }
+    }*/
+    //--------------------------------------------------------------------------------
+
     public void SetBc (View vt){
+       //改变背景色
        if(bcf) {mContentView.setBackgroundColor(0xff000000);
            bcf=!bcf;
        }
@@ -305,7 +317,7 @@ public  class MainActivity extends Activity implements  android.view.GestureDete
     }
 
 
-    class CheckBoxClickListener implements OnClickListener{
+    private class CheckBoxClickListener implements OnClickListener{
         @Override
         public void onClick(View v) {
             AlertDialog ad = new AlertDialog.Builder(MainActivity.this)

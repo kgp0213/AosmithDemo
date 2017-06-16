@@ -9,7 +9,7 @@ import android.content.Intent;
  */
 
 public class BootBroadcastReceiver extends BroadcastReceiver {
-    static final String action_boot="android.intent.action.BOOT_COMPLETED";
+    private static final String action_boot="android.intent.action.BOOT_COMPLETED";
 
     @Override
     public void onReceive(Context context, Intent intent) {

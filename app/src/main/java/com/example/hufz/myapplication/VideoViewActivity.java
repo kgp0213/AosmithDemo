@@ -215,31 +215,4 @@ public class VideoViewActivity extends Activity {
 
 	}
 
-	/**
-	 * ��ͣ�����
-	 */
-	/*protected void pause() {
-		if (btn_pause.getText().toString().trim().equals("����")) {
-			btn_pause.setText("��ͣ");
-			vv_video.start();
-			Toast.makeText(this, "��������", 0).show();
-			return;
-		}
-		if (vv_video != null && vv_video.isPlaying()) {
-			vv_video.pause();
-			btn_pause.setText("����");
-			Toast.makeText(this, "��ͣ����", 0).show();
-		}
-	}*/
-
-	/*
-	 * ֹͣ����
-	 */
-	/*protected void stop() {
-		if (vv_video != null && vv_video.isPlaying()) {
-			vv_video.stopPlayback();
-			btn_play.setEnabled(true);
-			isPlaying = false;
-		}
-	}*/
 }

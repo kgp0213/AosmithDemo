@@ -26,8 +26,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/vv_videoview"
         android:layout_marginTop="16dp"
-        android:layout_weight="1"
-        android:text="播放" />
+
+        android:text="@string/Play" />
 
     <Button
         android:id="@+id/btn_replay"
@@ -37,7 +37,7 @@
         android:layout_alignBottom="@+id/btn_play"
         android:layout_marginStart="22dp"
         android:layout_toEndOf="@+id/btn_play"
-        android:layout_weight="1"
-        android:text="重播" />
+
+        android:text="@string/Replay" />
 
 </RelativeLayout>

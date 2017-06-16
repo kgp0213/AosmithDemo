@@ -392,7 +392,7 @@ public class TempControlView extends View {
         void change(int temp);
     }
 
-    public int dp2px(float dp) {
+    private int dp2px(float dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getResources().getDisplayMetrics());
     }

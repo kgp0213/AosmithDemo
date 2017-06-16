@@ -48,10 +48,12 @@
         android:id="@+id/videoView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+
         android:visibility="invisible"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+
+        />
 
 </RelativeLayout>
 
-    <!--android:background="#ECF4F9"-->
+    <!--android:background="#ECF4F9"   android:layout_marginTop="20dp"  -->

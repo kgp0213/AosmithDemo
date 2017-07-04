@@ -28,7 +28,7 @@ public class TempControlView extends View {
     private int dialRadius;
     // 圆弧半径
     private int arcRadius;
-    // 刻度高
+    // 刻度高,刻度指针长度
     private int scaleHeight = dp2px(10);
     // 刻度盘画笔
     private Paint dialPaint;
@@ -85,8 +85,10 @@ public class TempControlView extends View {
 
     private void init() {
         dialPaint = new Paint();
-        dialPaint.setAntiAlias(true);
+        dialPaint.setAntiAlias(true);  //抗锯齿
+        //设置画出的线的 粗细程度
         dialPaint.setStrokeWidth(dp2px(2));
+        //让画出的图形是空心的
         dialPaint.setStyle(Paint.Style.STROKE);
 
         arcPaint = new Paint();
@@ -146,16 +148,21 @@ public class TempControlView extends View {
      */
     private void drawScale(Canvas canvas) {
         canvas.save();
+        // x轴和y轴偏移多远的距离，然后以偏移后的位置作为坐标原点。也就是说原来在（100,100）,
+        // 然后translate（1，1）新的坐标原点在（101,101）
         canvas.translate(getWidth() / 2, getHeight() / 2);
-        // 逆时针旋转135-2度
+        // 逆时针旋转135-2度,(270/60=4.5, 4.5/2=~2)
         canvas.rotate(-133);
         dialPaint.setColor(Color.parseColor("#3CB7EA"));
         for (int i = 0; i < 60; i++) {
+          //public void drawLine (float startX, float startY, float stopX, float stopY, Paint paint)
+          //startX：起始端点的X坐标,startY：起始端点的Y坐标,stopX：终止端点的X坐标,stopY：终止端点的Y坐标。
+          //paint：绘制直线所使用的画笔。
             canvas.drawLine(0, -dialRadius, 0, -dialRadius + scaleHeight, dialPaint);
             canvas.rotate(4.5f);
         }
 
-        canvas.rotate(90);
+        canvas.rotate(90);  //初始角度调整到135位置
         dialPaint.setColor(Color.parseColor("#E37364"));
         for (int i = 0; i < (temperature - minTemp) * angleRate; i++) {
             canvas.drawLine(0, -dialRadius, 0, -dialRadius + scaleHeight, dialPaint);
@@ -169,10 +176,39 @@ public class TempControlView extends View {
      *
      * @param canvas 画布
      */
+    /*绘制一段弧线，它表示由一对坐标、宽度和高度指定的椭圆部分。
+    public void drawArc(RectF oval, float startAngle, float sweepAngle, boolean useCenter, Paint paint)
+    oval :指定圆弧的外轮廓矩形区域。
+    startAngle: 圆弧起始角度，单位为度。
+    sweepAngle: 圆弧扫过的角度，顺时针方向，单位为度。
+    useCenter: 如果为True时，在绘制圆弧时将圆心包括在内，通常用来绘制扇形。
+    paint: 绘制圆弧的画板属性，如颜色，是否填充等。
+    本例演示了drawArc的四种不同用法,
+    1. 填充圆弧但不含圆心：
+    mPaints[0] = new Paint();
+    mPaints[0].setAntiAlias(true);
+    mPaints[0].setStyle(Paint.Style.FILL);
+    mPaints[0].setColor(0x88FF0000);
+    mUseCenters[0] = false;
+    2. 填充圆弧带圆心（扇形）
+    mPaints[1] = new Paint(mPaints[0]);
+    mPaints[1].setColor(0x8800FF00);
+    mUseCenters[1] = true;
+    3. 只绘圆周，不含圆心
+    mPaints[2] = new Paint(mPaints[0]);
+    mPaints[2].setStyle(Paint.Style.STROKE);
+    mPaints[2].setStrokeWidth(4);
+    mPaints[2].setColor(0x880000FF);
+    mUseCenters[2] = false;
+    4. 只绘圆周，带圆心（扇形）
+    mPaints[3] = new Paint(mPaints[2]);
+    mPaints[3].setColor(0x88888888);
+    mUseCenters[3] = true;*/
     private void drawArc(Canvas canvas) {
         canvas.save();
         canvas.translate(getWidth() / 2, getHeight() / 2);
         canvas.rotate(135 + 2);
+        //构造一个指定了4个参数的矩形
         RectF rectF = new RectF(-arcRadius, -arcRadius, arcRadius, arcRadius);
         canvas.drawArc(rectF, 0, 265, false, arcPaint);
         canvas.restore();
